@@ -1,13 +1,9 @@
-import React, { Component} from "react";
+import React from 'react';
 
-class List extends Component{
-  render(){
-    return(
-      <div className="List">
-        <h1> Hello, World! </h1>
-      </div>
-    );
-  }
-}
+const InfiniteList = () => (
+  <div data-testid="infinite-list">
+    <h1> Hello, World! </h1>
+  </div>
+);
 
-export default List;
+export default InfiniteList;
