@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import useIntersectionObserver from './useIntersectionObserver';
 
-const InfiniteList = () => (
-  <div data-testid="infinite-list">
-    <h1> Hello, World! </h1>
-  </div>
-);
+const ItemGenerator = ({ itemGenerator }) => {
+  const [items, setItems] = useState([]);
+  const [isExtendingList, setIsExtendingList] = useState(false);
 
-export default InfiniteList;
+  const observerRef = useRef(null);
+  const observeeRef = useRef(null);
+  const isIntersecting = useIntersectionObserver(observerRef, observeeRef);
+
+  useEffect(() => {
+    if (isIntersecting && !isExtendingList) {
+      setIsExtendingList(true);
+      setTimeout(() => {
+        const newItem = itemGenerator();
+        setItems([...items, newItem]);
+        setIsExtendingList(false);
+      }, 100);
+    }
+  }, [isIntersecting, isExtendingList]);
+
+  return (
+    <ul ref={observerRef} style={{ border: '1px solid salmon', maxHeight: '150px', overflow: 'scroll' }}>
+      { items.map((a) => a) }
+      <div ref={observeeRef} />
+    </ul>
+  );
+};
+
+export default ItemGenerator;

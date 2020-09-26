@@ -1,13 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-export default (observerRef, observeeRef, callback) => {
-  if (!(typeof callback === 'function')) throw new TypeError('callback must be a function');
+export default (observerRef, observeeRef) => {
+  const [isIntersecting, setIsIntersecting] = useState(null);
 
   useEffect(() => {
-    if (!(observerRef.current instanceof HTMLElement)) throw new TypeError('observerRef.current is not of HTMLElement type');
-    if (!(observeeRef.current instanceof HTMLElement)) throw new TypeError('observeeRef.current is not of HTMLElement type');
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsIntersecting(entry.isIntersecting);
+    }, { root: observerRef.current });
 
-    const observer = new IntersectionObserver(callback, { root: observerRef.current });
     observer.observe(observeeRef.current);
+
+    return () => observer.disconnect();
   }, []);
+
+  return isIntersecting;
 };
