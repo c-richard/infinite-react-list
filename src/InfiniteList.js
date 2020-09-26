@@ -7,7 +7,7 @@ const ItemGenerator = ({ itemGenerator }) => {
 
   const observerRef = useRef(null);
   const observeeRef = useRef(null);
-  const isIntersecting = useIntersectionObserver(observerRef, observeeRef);
+  const [isIntersecting] = useIntersectionObserver(observerRef, observeeRef);
 
   useEffect(() => {
     if (isIntersecting && !isExtendingList) {
