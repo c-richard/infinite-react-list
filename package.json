@@ -4,9 +4,7 @@
   "description": "Horizontal or vertical infinte scrolling list component for react",
   "main": "lib/InfiniteList.js",
   "scripts": {
-    "prepare": "babel src --out-dir lib",
-    "watch": "jest --watchAll --silent",
-    "test": "jest",
+    "build": "babel src --out-dir lib",
     "demo": "npx webpack --config demo.webpack.config.js",
     "demo-server": "npx webpack-dev-server --open --config demo.webpack.config.js"
   },
@@ -17,9 +15,6 @@
     "@babel/core": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
-    "@testing-library/jest-dom": "^5.11.2",
-    "@testing-library/react": "^10.4.8",
-    "babel-jest": "^26.2.2",
     "babel-loader": "^8.1.0",
     "eslint": "^7.6.0",
     "eslint-config-airbnb": "^18.2.0",
@@ -28,7 +23,6 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.0.8",
-    "jest": "^26.2.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "regenerator-runtime": "^0.13.7",
