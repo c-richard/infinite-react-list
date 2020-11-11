@@ -1,7 +1,7 @@
 {
   "name": "infinite-react-list",
   "version": "0.1.1",
-  "description": "Horizontal or vertical infinte scrolling list component for react",
+  "description": "Infinte scrolling list component for react",
   "main": "lib/InfiniteList.js",
   "scripts": {
     "build": "babel src --out-dir lib",
