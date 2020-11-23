@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
 
-const InfiniteList = ({ next }) => {
+const InfiniteList = ({ next } : any) => {
   // Intersection observer setup
   const observerRef = useRef(null);
   const observeeRef = useRef(null);

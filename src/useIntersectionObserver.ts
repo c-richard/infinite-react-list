@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export default (observerRef, ...observeeRefs) => {
-  const [isIntersecting, setIsIntersecting] = useState(observeeRefs.map(_ => null));
+  const [isIntersecting, setIsIntersecting] = useState(observeeRefs.map(() => null));
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -11,7 +11,7 @@ export default (observerRef, ...observeeRefs) => {
     observeeRefs.forEach((observeeRef) => observer.observe(observeeRef.current));
 
     return () => observer.disconnect();
-  }, []);
+  }, [observerRef, observeeRefs]);
 
   return isIntersecting;
 };
