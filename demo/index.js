@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import InfiniteList from '../src/InfiniteList';
+import InfiniteList from '../lib/InfiniteList';
 import 'regenerator-runtime';
 
 const App = () => {
