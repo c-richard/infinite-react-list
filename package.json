@@ -5,6 +5,7 @@
   "main": "lib/InfiniteList.js",
   "scripts": {
     "build": "tsc",
+    "watch": "tsc -w",
     "demo": "npx webpack --config demo.webpack.config.js",
     "demo-server": "npx webpack-dev-server --open --config demo.webpack.config.js"
   },

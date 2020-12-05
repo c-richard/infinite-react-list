@@ -1,19 +1,25 @@
 import React, { useState, useRef, useEffect } from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
 
-const InfiniteList = ({ next } : any) => {
-  // Intersection observer setup
-  const observerRef = useRef(null);
-  const observeeRef = useRef(null);
-  const [isIntersecting] = useIntersectionObserver(observerRef, observeeRef);
+type Generator  = () => ({ value: boolean, done: boolean })
 
-  const [items, setItems] = useState([]);
-  const [isExtending, setIsExtending] = useState(false);
-  const [isWaypointAboveScroll, setIsWaypointAboveScroll] = useState(false);
-  const [isListComplete, setIsListComplete] = useState(false);
+const InfiniteList = ({ next } : { next : Generator }) => {
+  // Intersection observer setup
+  const listRef = useRef<HTMLUListElement>(null);
+  const waypointRef = useRef<HTMLDivElement>(null);
+  const [isWaypointIntersectingList] = useIntersectionObserver(listRef, waypointRef);
+
+  // List representation
+  const [items, setItems] = useState<React.ReactNode[]>([]);
+  const [isExtending, setIsExtending] = useState<boolean>(false);
+  const [isWaypointAboveScroll, setIsWaypointAboveScroll] = useState<boolean>(false);
+  const [isListComplete, setIsListComplete] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!isListComplete && !isExtending && (isIntersecting || isWaypointAboveScroll)) {
+    if (
+      !(isExtending || isListComplete)
+      && (isWaypointIntersectingList || isWaypointAboveScroll)
+    ) {
       setIsExtending(true);
       setTimeout(() => {
         const { value, done } = next();
@@ -21,14 +27,17 @@ const InfiniteList = ({ next } : any) => {
         setItems([...items, value]);
         setIsListComplete(done);
         setIsExtending(false);
-        setIsWaypointAboveScroll(observeeRef.current.offsetTop < observerRef.current.scrollTop);
+
+        if (waypointRef.current !== null && listRef.current !== null) {
+          setIsWaypointAboveScroll(waypointRef.current.offsetTop < listRef.current.scrollTop);
+        }
       }, 100);
     }
-  }, [isIntersecting, isExtending, isWaypointAboveScroll]);
+  }, [isWaypointIntersectingList, isExtending, isWaypointAboveScroll]);
 
   return (
     <ul
-      ref={observerRef}
+      ref={listRef}
       style={{
         border: '1px dashed salmon',
         maxHeight: 150,
@@ -37,7 +46,7 @@ const InfiniteList = ({ next } : any) => {
       }}
     >
       { items.slice(0, -20).map((a) => a) }
-      <div ref={observeeRef} style={{ border: '1px solid green' }} />
+      <div ref={waypointRef} style={{ border: '1px solid green' }} />
       { items.slice(-20).map((a) => a) }
     </ul>
   );

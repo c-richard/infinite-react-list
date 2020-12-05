@@ -1,12 +1,28 @@
 {
   "compilerOptions": {
-    "outDir": "lib",
+    /* basic */
     "module":"ES2015",
-    "noImplicitUseStrict": true,
+    "outDir": "lib",
+
+    /* strict type checking options */
+    "strict": true, 
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "alwaysStrict": true,
+
+    /* mo' checks */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* module resolution */
     "moduleResolution": "node",
-    "preserveConstEnums": true,
     "allowSyntheticDefaultImports": true,
-    "jsx": "react"
+
+    "preserveConstEnums": true,
+    "jsx": "react",
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
