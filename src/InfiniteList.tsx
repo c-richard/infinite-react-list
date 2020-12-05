@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
 
-type Generator  = () => ({ value: boolean, done: boolean })
+type InfiniteListProps = {
+  next: () => ({ value: boolean, done: boolean})
+};
 
-const InfiniteList = ({ next } : { next : Generator }) => {
+const InfiniteList = ({ next } : InfiniteListProps) : React.ReactElement => {
   // Intersection observer setup
   const listRef = useRef<HTMLUListElement>(null);
   const waypointRef = useRef<HTMLDivElement>(null);
@@ -33,6 +35,7 @@ const InfiniteList = ({ next } : { next : Generator }) => {
         }
       }, 100);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isWaypointIntersectingList, isExtending, isWaypointAboveScroll]);
 
   return (

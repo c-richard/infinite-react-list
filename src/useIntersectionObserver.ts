@@ -16,10 +16,10 @@ const useIntersectionObserver = (
     // For each observee ensure the observer is observing
     observeeRefs.forEach(
       (observeeRef : React.RefObject<HTMLElement>) => {
-          if (observeeRef.current !== null) {
-            observer.observe(observeeRef.current)
-          }
-      }
+        if (observeeRef.current !== null) {
+          observer.observe(observeeRef.current);
+        }
+      },
     );
 
     return () => observer.disconnect();
