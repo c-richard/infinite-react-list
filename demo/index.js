@@ -18,16 +18,16 @@ const App = () => {
     }
   }
 
-  // function* infiniteCounter() {
-  //  let i = 0;
-  //  while (true) {
-  //    i += 1;
-  //    yield <div key={i}>{i}</div>;
-  //  }
-  // }
+  function* infiniteCounter() {
+   let i = 0;
+   while (true) {
+     i += 1;
+     yield <div key={i}>{i}</div>;
+   }
+  }
 
-  // const itemGenerator = infiniteCounter();
-  const itemGenerator = fibonacho(10000000000);
+  const itemGenerator = infiniteCounter();
+  // const itemGenerator = fibonacho(10000000000);
 
   return (
     <div>

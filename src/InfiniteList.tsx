@@ -14,13 +14,12 @@ const InfiniteList = ({ next } : InfiniteListProps) : React.ReactElement => {
   // List representation
   const [items, setItems] = useState<React.ReactNode[]>([]);
   const [isExtending, setIsExtending] = useState<boolean>(false);
-  const [isWaypointAboveScroll, setIsWaypointAboveScroll] = useState<boolean>(false);
   const [isListComplete, setIsListComplete] = useState<boolean>(false);
 
   useEffect(() => {
     if (
       !(isExtending || isListComplete)
-      && (isWaypointIntersectingList || isWaypointAboveScroll)
+      && isWaypointIntersectingList
     ) {
       setIsExtending(true);
       setTimeout(() => {
@@ -29,28 +28,31 @@ const InfiniteList = ({ next } : InfiniteListProps) : React.ReactElement => {
         setItems([...items, value]);
         setIsListComplete(done);
         setIsExtending(false);
-
-        if (waypointRef.current !== null && listRef.current !== null) {
-          setIsWaypointAboveScroll(waypointRef.current.offsetTop < listRef.current.scrollTop);
-        }
       }, 100);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isWaypointIntersectingList, isExtending, isWaypointAboveScroll]);
+  }, [isWaypointIntersectingList, isExtending]);
 
   return (
     <ul
       ref={listRef}
       style={{
-        border: '1px dashed salmon',
         maxHeight: 150,
         overflow: 'scroll',
-        position: 'relative', // sets list container as offsetParent
       }}
     >
-      { items.slice(0, -20).map((a) => a) }
-      <div ref={waypointRef} style={{ border: '1px solid green' }} />
-      { items.slice(-20).map((a) => a) }
+      <div style={{ position: 'relative' }}>
+        { items }
+        <div
+          ref={waypointRef}
+          style={{
+            position: 'absolute',
+            width: 0,
+            bottom: 0,
+            height: 300,
+          }}
+        />
+      </div>
     </ul>
   );
 };
