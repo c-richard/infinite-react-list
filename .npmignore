@@ -1,4 +1,4 @@
-src
-.babelrc
-.eslintrc.js
-webpack.config.js
+src/
+./.eslintrc.js
+./tsconfig.json
+demo/

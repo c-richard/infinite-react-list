@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import InfiniteList from '../lib/InfiniteList';
+import InfiniteList from 'infinite-react-list';
 import 'regenerator-runtime';
 
 const App = () => {
@@ -31,7 +31,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>demonstration</h1>
+      <h1>Demo</h1>
       <InfiniteList next={() => itemGenerator.next()} />
     </div>
   );

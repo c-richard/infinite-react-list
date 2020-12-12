@@ -37,7 +37,7 @@ const InfiniteList = ({ next } : InfiniteListProps) : React.ReactElement => {
     <ul
       ref={listRef}
       style={{
-        maxHeight: 150,
+        maxHeight: 300,
         overflow: 'scroll',
       }}
     >
