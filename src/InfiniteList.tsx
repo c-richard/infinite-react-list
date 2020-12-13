@@ -2,7 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
 
 type InfiniteListProps = {
-  next: () => ({ value: boolean, done: boolean})
+  next: () => ({ value: React.ReactElement, done: boolean})
+};
+
+type List = {
+  items: React.ReactElement[],
+  isListComplete: boolean,
 };
 
 const InfiniteList = ({ next } : InfiniteListProps) : React.ReactElement => {
@@ -12,26 +17,20 @@ const InfiniteList = ({ next } : InfiniteListProps) : React.ReactElement => {
   const [isWaypointIntersectingList] = useIntersectionObserver(listRef, waypointRef);
 
   // List representation
-  const [items, setItems] = useState<React.ReactNode[]>([]);
-  const [isExtending, setIsExtending] = useState<boolean>(false);
-  const [isListComplete, setIsListComplete] = useState<boolean>(false);
+  const [{ items, isListComplete }, setList] = useState<List>({ items: [], isListComplete: false });
 
   useEffect(() => {
-    if (
-      !(isExtending || isListComplete)
-      && isWaypointIntersectingList
-    ) {
-      setIsExtending(true);
+    if (!isListComplete && isWaypointIntersectingList) {
       setTimeout(() => {
         const { value, done } = next();
-
-        setItems([...items, value]);
-        setIsListComplete(done);
-        setIsExtending(false);
+        setList({
+          items: [...items, value],
+          isListComplete: done,
+        });
       }, 100);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isWaypointIntersectingList, isExtending]);
+  }, [isWaypointIntersectingList, items]);
 
   return (
     <ul
