@@ -6,7 +6,7 @@
   "scripts": {
     "demo": "webpack --config demo.webpack.config.js",
     "demo-watch": "webpack --watch --config demo.webpack.config.js",
-    "demo-server": "webpack-dev-server --open --config demo.webpack.config.js"
+    "demo-server": "webpack serve --open --config demo.webpack.config.js"
   },
   "author": "Richard Carruthers <richardcarruthers8@gmail.com>",
   "license": "ISC",
@@ -15,11 +15,10 @@
     "@babel/core": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
-    "@webpack-cli/serve": "^1.1.0",
     "babel-loader": "^8.1.0",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack": "^5.37.0",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
     "infinite-react-list": "file:..",
